@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD</title>
+    <link rel="stylesheet" href="{% static 'enroll/css/bootstrap.css' %}">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center alert alert-danger">Django CRUD with Ajax</h2>
+      <div class="row">
+        <div class="col-sm-4">
+          <h2 class="text-center alert alert-info">Add/Update Data</h2>
+          <form action="" method="post">
+            {% csrf_token %} 
+            <input type="hidden" name="stuid" id='stuid'/>
+            {{form.as_p}}
+            <input
+              type="button"
+              id="btn-save"
+              class="btn btn-success btn-sm"
+              value="Save"
+              id='btn-save'
+            />
+          </form><br>
+          <div id = 'msg' class='alert alert-danger' style="display:none"></div>
+        </div>
+        <div class="col-sm-8">
+          <h2 class="text-center alert alert-info">Student Details</h2>
+            <table class='table table-hover'>
+            <thead>
+            <tr>
+              <th scope='col'>ID</th>
+              <th scope='col'>Name</th>
+              <th scope='col'>Email</th>
+              <th scope='col'>Description</th>
+              <th scope='col'>Edit</th>
+              <th scope='col'>Delete</th>
+            </tr>
+            </thead>
+            <tbody id='tbody'>
+              {% for stu in stud %}
+                <tr>
+                    <td>{{stu.id}}</td>
+                    <td>{{stu.name}}</td>
+                    <td>{{stu.email}}</td>
+                    <td>{{stu.desc}}</td>
+                    <td><input type="button" id='btn-edit' class='btn btn-warning btn-sm btn-edit' data-sid='{{stu.id}}' value="Edit"></td>
+                    <td><input type="button" id='btn-del' class='btn btn-danger btn-sm btn-del' data-sid='{{stu.id}}' value="Delete"></td>
+                </tr>
+              
+              {% endfor %}
+            </tbody>
+            </table>
+
+      </div>
+    </div>
+    <script src="{% static 'enroll/js/popper.js' %}"></script>
+    <script src="{% static 'enroll/js/bootstrap.js' %}"></script>
+
+    <script src="{% static 'enroll/js/jquery.js' %}"></script>
+    
+    
+    {% include 'enroll/ajax.html' %}
+  </body>
+</html>
